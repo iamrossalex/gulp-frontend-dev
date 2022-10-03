@@ -7,5 +7,5 @@ exports.default = (cb) => {
     g.watch(["src/*.json"]).on("change", (p, s) => {
         console.log("Path: ", p);
     });
-    cb();88.99.174.225
+    cb();
 }
