@@ -1,0 +1,18 @@
+# Installation
+apk add nodejs npm
+npm install --global gulp-cli
+cd /code
+npm install --save-dev gulp
+# ===============
+
+# Installs GULP
+npm install -g gulp-cli
+
+# In the /code directory creates package.json
+npm init
+
+# Install local GULP package
+npm install --save-dev  gulp
+
+# Run default task
+gulp

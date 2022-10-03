@@ -1,0 +1,11 @@
+version: "3"
+services:
+  node-gulp:
+    image: alpine:latest
+    volumes:
+      - ./www:/code
+    command: ["tail", "-f", "/dev/null"]
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3000:3000"
