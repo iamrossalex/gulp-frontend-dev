@@ -1,5 +1,7 @@
 {
     "name": "index.html",
+    "joinCSS": true,
+    "joinJS": true,
     "components": [
         {
             "source": "components/Headers/header-v1",

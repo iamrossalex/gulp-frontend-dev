@@ -42,6 +42,6 @@ Just `docker-compose up`. On sturtup it creates all folders if they are not exis
 
 ## MAP
 
-- [ ] Instalation
+- [x] Instalation
 - [ ] Alpine-based image "wacdis/front:0.1a"
 - [ ] Gulpfile
