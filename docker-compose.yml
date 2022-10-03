@@ -7,30 +7,31 @@ services:
     command: ["tail", "-f", "/dev/null"]
     ports:
       - "3000:3000"
-
-  nginx-h3:
-    image: wacdis/nginx:latest
+  nginx:
+    image: wacdis/nginx-quic:latest
     volumes:
-      - ./letsencrypt/etc/letsencrypt:/etc/letsencrypt
-      - ./letsencrypt/var/lib/letsencrypt:/var/lib/letsencrypt
-      - ./www:/code
-      - ./logs:/var/log/nginx
-      - ./www.conf:/etc/nginx/conf.d/default.conf
+      - ./cert:/cert
+      - ./manager:/code
+      - ./www/dest:/code/dest
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      internal:
     ports:
       - "80:80"
-    network:
-      - internal
-
-
-  # PHP 8
-  php8:
-    image: wacdis/php:8.1.1
+      - "8080:8080"
+      - "443:443/tcp"
+      - "443:443/udp"
+      - "8443:8443/tcp"
+      - "8443:8443/udp"
+  php:
+    image: wacdis/php:8.1.11-fpm-alpine3.16
     volumes:
-      - ./www:/code
+      - ./manager:/code
+      - ./www/dest:/code/dest
+    networks:
+      internal:
     ports:
-      - '9000'
-    network:
-      - internal
+      - "9000"
 
-network:
-  - internal
+networks:
+  internal:
