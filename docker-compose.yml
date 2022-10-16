@@ -1,37 +1,29 @@
-version: "3"
+version: "3.9"
+name: workspace
 services:
-  node-gulp:
+  gulp-1:
     image: alpine:latest
+    # container_name: gulp
     volumes:
-      - ./www:/code
-    command: ["tail", "-f", "/dev/null"]
-    ports:
-      - "3000:3000"
-  nginx:
-    image: wacdis/nginx-quic:latest
-    volumes:
-      - ./cert:/cert
-      - ./manager:/code
-      - ./www/dest:/code/dest
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ../__projects:/projects
+      - ../__code:/code
     networks:
-      internal:
+      bridged:
+    network_mode: "bridge"
     ports:
       - "80:80"
-      - "8080:8080"
-      - "443:443/tcp"
-      - "443:443/udp"
-      - "8443:8443/tcp"
-      - "8443:8443/udp"
-  php:
-    image: wacdis/php:8.1.11-fpm-alpine3.16
-    volumes:
-      - ./manager:/code
-      - ./www/dest:/code/dest
-    networks:
-      internal:
-    ports:
-      - "9000"
-
+      - "443:443"
+      - "5522:22"
+    command:
+      - /bin/ash
+      - -c
+      - |
+        apk update
+        apk upgrade
+        apk add openssh openrc nodejs npm
+        npm install -g gulp-cli
+        cd /projects/__
+        npm install --save-dev gulp del gulp-autoprefixer autoprefixer gulp-file-include gulp-sass gulp-uglify uglify-js pump gulp-watch yargs
+        tail -f /dev/null
 networks:
-  internal:
+  bridged:
