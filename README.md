@@ -38,7 +38,7 @@ There are 2 sections:
 
 ## Usage
 
-Just `docker-compose up`. On sturtup it creates all folders if they are not exists.
+Just `docker-compose up`. On startup it creates all folders if they are not exists.
 
 ## MAP
 
